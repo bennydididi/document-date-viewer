@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 修改日期列表</title>
+</head>
+
+<body>
+    <!-- 文件上传输入框 -->
+    <input type="file" id="fileInput" multiple>
+    <!-- 显示结果的表格 -->
+    <table id="resultTable">
+        <thead>
+            <tr>
+                <th>文件名</th>
+                <th>修改日期</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        // 获取结果表格的 tbody 元素
+        const resultTableBody = document.querySelector('#resultTable tbody');
+        // 获取文件输入框元素
+        const fileInput = document.getElementById('fileInput');
+
+        // 为文件输入框添加 change 事件监听器
+        fileInput.addEventListener('change', function () {
+            const files = this.files;
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const modificationDate = new Date(file.lastModified);
+
+                // 创建一个新的表格行
+                const row = document.createElement('tr');
+
+                // 创建文件名单元格
+                const fileNameCell = document.createElement('td');
+                fileNameCell.textContent = file.name;
+
+                // 创建修改日期单元格
+                const modificationDateCell = document.createElement('td');
+                modificationDateCell.textContent = modificationDate.toLocaleString();
+
+                // 将单元格添加到行中
+                row.appendChild(fileNameCell);
+                row.appendChild(modificationDateCell);
+
+                // 将行添加到表格的 tbody 部分
+                resultTableBody.appendChild(row);
+            }
+        });
+    </script>
+
+</html>
